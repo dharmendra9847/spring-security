@@ -1,5 +1,8 @@
 package com.itstech.dharm.springsecuritydemo.service;
 
+import com.itstech.dharm.springsecuritydemo.dao.UserRepo;
+import com.itstech.dharm.springsecuritydemo.model.User;
+import com.itstech.dharm.springsecuritydemo.model.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +21,11 @@ public class MyUserDetailsServiceImpl implements UserDetailsService, MyUserDetai
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+
+        User user = repo.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User Not Found with: " + username);
+        }
+        return new UserPrincipal(user);
     }
 }
