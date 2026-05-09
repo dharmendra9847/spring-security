@@ -1,0 +1,15 @@
+* text=auto
+
+*.java text diff=java
+*.xml text
+*.yml text
+*.properties text
+*.md text
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+
+mvnw text eol=lf
+*.cmd text eol=crlf
