@@ -12,7 +12,9 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -39,13 +41,8 @@ public class SecurityConfig {
 
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
 
-        // Set custom UserDetailsService
-        //provider.setUserDetailsService(userDetailsService); // OLDER VERSION
-        //provider.setUserDetailsPasswordService((UserDetailsPasswordService) userDetailsService);
-
         // Set password encoder
-        //provider.setPasswordEncoder(passwordEncoder());
-        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance()); // OLDER VERSION
+        provider.setPasswordEncoder(passwordEncoder());
 
         return provider;
     }
@@ -66,26 +63,11 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /*  Working with Multiple Users */
-    /*  THESE UserDetailsService WORK WITH STATIC VALUE */
-    /* I don't want to work with static values now. */
-/*    @Bean
-    public UserDetailsService userDetailsService() {
-
-        UserDetails user = User
-                .withDefaultPasswordEncoder()
-                .username("dharm")
-                .password("dharm@123")
-                .roles("USER")
-                .build();
-        UserDetails admin = User
-                .withDefaultPasswordEncoder()
-                .username("admin")
-                .password("admin@123")
-                .roles("ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(user, admin);
+    /*
+     * Password Encoder
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(12);
     }
-*/
 }
