@@ -54,6 +54,11 @@ public class JwtServiceImpl implements JwtService {
                 .compact();
     }
 
+    @Override
+    public String extractUserName(String token) {
+        return "";
+    }
+
     // Convert Secret String into Key
     private Key getKey() {
        byte[] keyByte = Decoders.BASE64.decode(secretKey);

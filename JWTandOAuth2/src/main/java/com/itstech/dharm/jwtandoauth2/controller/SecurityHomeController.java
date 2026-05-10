@@ -9,11 +9,11 @@ public class SecurityHomeController {
 
     @GetMapping("home")
     public String home(HttpServletRequest request) {
-        return "Hello World! + \nYour sessionID is: " + request.getSession().getId();
+        return "Welcome to the <b>ITSTech Secure Portal</b>. Your connection is authorized.";
     }
 
     @GetMapping("about")
     public String about(HttpServletRequest request){
-        return "Hello, this about for me!, What do you want to do? \nYour sessionID is: " + request.getSession().getId();
+        return "This service provides <b>JWT and OAuth2</b> authentication solutions for secure API access.";
     }
 }
